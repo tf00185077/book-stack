@@ -1,24 +1,25 @@
 version: '2'
 services:
-  mysql:
-    image: mysql:8.3
-    environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE=bookstack
-      - MYSQL_USER=bookstack
-      - MYSQL_PASSWORD=secret
-    volumes:
-      - mysql-data:/var/lib/mysql
+  # mysql:
+  #   image: mysql:8.3
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=secret
+  #     - MYSQL_DATABASE=bookstack
+  #     - MYSQL_USER=bookstack
+  #     - MYSQL_PASSWORD=secret
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql
 
   bookstack:
     image: solidnerd/bookstack:24.5.2
-    depends_on:
-      - mysql
+    # depends_on:
+    #   - mysql
     environment:
-      - DB_HOST=mysql:3306
-      - DB_DATABASE=bookstack
-      - DB_USERNAME=bookstack
-      - DB_PASSWORD=secret
+      - DB_HOST=sql12.freesqldatabase.com
+      - DB_DATABASE=sql12715609
+      - DB_USERNAME=sql12715609
+      - DB_PASSWORD=IxHfgkNlQn
+      # 登入帳號admion@admin.com password
       #set the APP_ to the URL of bookstack without without a trailing slash APP_URL=https://example.com
       - APP_URL=http://localhost:8080
       # APP_KEY is used for encryption where needed, so needs to be persisted to
@@ -30,19 +31,19 @@ services:
       - ./storage-uploads:/var/www/bookstack/storage/uploads
     ports:
       - "8080:8080"
-  import_mysql_data:
-    image: alpine
-    volumes:
-      - mysql-data:/var/lib/mysql
-      - ./backup:/backup
-    command: sh -c "cd /var/lib/mysql && tar xzvf /backup/mysql-data.tar.gz --strip 1"
-    depends_on:
-      - mysql
-    deploy:
-      replicas: 0
+  # import_mysql_data:
+  #   image: alpine
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql
+  #     - ./backup:/backup
+  #   command: sh -c "cd /var/lib/mysql && tar xzvf /backup/mysql-data.tar.gz --strip 1"
+  #   depends_on:
+  #     - mysql
+  #   deploy:
+  #     replicas: 0
 volumes:
   mysql-data:
   uploads:
   storage-uploads:
-# docker-compose run import_mysql_data 需額外執行這段以注入資料庫，並重啟container
-# docker run --rm -v mysql-data:/volume -v ${PWD}/backup:/backup alpine sh -c "cd /volume && tar czvf /backup/mysql-data.tar.gz ." 將現在的volume壓縮
+# docker-compose run import_mysql_data 需額外執行這段以注入資料庫，並重啟container(用不到了)
+# docker run --rm -v mysql-data:/volume -v ${PWD}/backup:/backup alpine sh -c "cd /volume && tar czvf /backup/mysql-data.tar.gz ." 將現在的volume壓縮(用不到了)
