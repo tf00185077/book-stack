@@ -1,0 +1,15 @@
+# docker stop bookstack_22.04
+# docker rm bookstack_22.04
+# docker run -d --net bookstack_nw \
+#   -e DB_HOST=bookstack_db:3306 \
+#   -e DB_DATABASE=bookstack \
+#   -e DB_USERNAME=bookstack \
+#   -e DB_PASSWORD=secret \
+#   -e APP_URL=http://example.com \
+#   -p 8080:80 \
+#   --name="bookstack_22.04" \
+#   --mount type=bind,source=/mnt/c/Users/USER/Desktop/CODE/boockstack/.env,target=/var/www/bookstack/.env,readonly \
+#   -v /mnt/c/Users/USER/Desktop/CODE/boockstack/public/uploads:/var/www/bookstack/public/uploads \
+#   -v /mnt/c/Users/USER/Desktop/CODE/boockstack/storage/uploads:/var/www/bookstack/storage/uploads \
+#   solidnerd/bookstack:22.04
+# Application key
